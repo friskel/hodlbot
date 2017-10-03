@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ta-lib-0.4.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/main/java/hodlbot/ta-lib-0.4.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

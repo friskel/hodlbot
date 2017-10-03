@@ -29,7 +29,7 @@ public class MarketOrder {
 
         //sell happens here, response stored in string json
         String json = wrapper.sellLimit(pair, String.valueOf(amount), sellRate);
-        Thread.sleep(3000);
+        Thread.sleep(300);
         if (json.contains("success")) {
             uuid = Bittrex.getMapsFromResponse(json).get(0).get("uuid");
             System.out.println("success: " + uuid);
@@ -45,7 +45,7 @@ public class MarketOrder {
         String rawResponse = wrapper.getOrder(uuid);
         List<HashMap<String, String>> responseMapList = Bittrex.getMapsFromResponse(rawResponse);
         HashMap<String, String> order = responseMapList.get(0);
-        Thread.sleep(400);
+        Thread.sleep(500);
         boolean openOrder = Boolean.getBoolean(order.get("IsOpen"));
         double actualPrice = Double.valueOf(order.get("PricePerUnit"));
         double qtySold = Double.valueOf(order.get("Quantity"));
@@ -55,15 +55,15 @@ public class MarketOrder {
 
         if(!openOrder){
             System.out.println("sell successful!");
-            Thread.sleep(2000);
+            Thread.sleep(1000);
             System.out.println("actual price: " + String.format("%.8f", actualPrice));
-            Thread.sleep(1000);
+            Thread.sleep(200);
             System.out.println("amount sold: " + String.format("%.8f", qtySold));
-            Thread.sleep(1000);
+            Thread.sleep(200);
             System.out.println("btc received: " + String.format("%.8f", sellAmount));
-            Thread.sleep(500);
+            Thread.sleep(200);
             System.out.println("fee: " + String.format("%.8f", fee));
-            Thread.sleep(1000);
+            Thread.sleep(200);
             buyback(wrapper, pair, actualPrice, qtySold);
         }
     }
@@ -76,9 +76,9 @@ public class MarketOrder {
         double buybackPrice = sellAmount * (profitRate - hookFee);
 
         double btc;
-        Thread.sleep(1000);
+
         btc = Double.valueOf(Bittrex.getMapsFromResponse(wrapper.getBalance("BTC")).get(0).get("Balance"));
-        Thread.sleep(1000);
+        Thread.sleep(200);
         System.out.println("btc to buyback: " + String.format("%.8f", btc));
 
         System.out.println("buyback price: " + String.format("%.8f", buybackPrice));
